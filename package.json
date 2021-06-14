@@ -1,0 +1,22 @@
+{
+  "name": "farf",
+  "version": "1.0.0",
+  "description": "command line file rename",
+  "bin": {
+    "farf": "bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavelpiha/farf.git"
+  },
+  "author": "Pavel Piha",
+  "bugs": {
+    "url": "https://github.com/pavelpiha/farf/issues"
+  },
+  "homepage": "https://github.com/pavelpiha/farf#readme",
+  "dependencies": {
+    "path": "^0.12.7",
+    "utils": "^0.3.1",
+    "yargs": "^17.0.1"
+  }
+}

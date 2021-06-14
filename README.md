@@ -1,4 +1,5 @@
 # farf
-Find and rename files
 
-This small cli app recursivly changes files and directories names
+farf means find and rename files
+
+This small cli app recursively changes files and directories names
