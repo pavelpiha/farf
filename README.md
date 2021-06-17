@@ -14,16 +14,17 @@ npm i -g farf
 farf -h
 ```
 
-## <a name="Example"></a>Example
+## <a name="example"></a>Example
 
-Change all files and directories names containing 'old' string into 'new' in 5 directories deep
+
+Change all files and directories names containing **old** into **new** in **5** directories deep **from directory where application were run**
 
 ```console
 farf -d 5 -f old -n new
 ```
 or
 ```console
-farf 5 old new
+farf 5 old new    // In this case order is important
 ```
 if `depth > 10 && depth <=15` next confirmation question will be seen:
 ```console
