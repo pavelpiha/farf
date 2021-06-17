@@ -1,6 +1,6 @@
 {
   "name": "farf",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "command line file rename",
   "bin": {
     "farf": "bin/index.js"
@@ -16,6 +16,7 @@
   "homepage": "https://github.com/pavelpiha/farf#readme",
   "dependencies": {
     "path": "^0.12.7",
+    "readline-sync": "^1.4.10",
     "utils": "^0.3.1",
     "yargs": "^17.0.1"
   }
