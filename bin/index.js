@@ -12,35 +12,56 @@ yargs
   .help()
   .alias("help", "h");
 
+const checkDepth = (options) => {
+  if (Number.isInteger(options.d)) {
+    return true;
+  }
+  throw new Error("Error: Depth value is wrong");
+};
+
+const checkName = (options) => {
+  if (options.o.length > 32) {
+    throw new Error(`Error: Old name value is wrong`);
+  } else if (options.n.length > 32) {
+    throw new Error(`Error: New name value is wrong`);
+  } else {
+    return true;
+  }
+};
+
+const checkOptions = (options) => {
+  if (checkDepth(options) && checkName(options)) {
+    return true;
+  }
+};
+
 const options = yargs
-  .usage("Usage: -d <depth> -f <old-file-name> -n <new-file-name> ")
+  .usage("Usage: -d <depth> -o <old> -n <new> ")
   .option("d", {
     alias: "depth",
     describe: "depth for search",
     type: "number",
   })
-  .option("f", {
-    alias: "old-file-name",
+  .option("o", {
+    alias: "old",
     describe: "Old name",
     type: "string",
   })
   .option("n", {
-    alias: "new-file-name",
+    alias: "new",
     describe: "New name",
     type: "string",
   })
+  .check((options) => checkOptions(options))
   .example(
-    "farf -d 5 -f old -n new",
-    "Change all files and directories containing 'old' string in the name into 'new' in 5 directories deep"
-  )
-  .example(
-    "farf 5 old new",
+    "farf -d 5 -o old -n new",
     "Change all files and directories containing 'old' string in the name into 'new' in 5 directories deep"
   ).argv;
 
-const [, , depth, oldFileName, newFileName] = process.argv;
+let [, , depth, oldFileName, newFileName] = process.argv;
 
 const corePath = "./";
+// const corePath = "./examples";
 let currentPath = "";
 let currentDepth = 0;
 
@@ -125,13 +146,43 @@ const runRenaming = () => {
     }
   }, 0);
 };
+const isOptionsAvailable = () =>
+  options.o && Number.isInteger(options.d) && options.n;
 
-if (
-  (options.f && options.d && options.n) ||
-  (depth && oldFileName && newFileName)
-) {
-  runRenaming(depth);
-} else {
-  yargs.showHelp();
-  process.exit();
-}
+const checkFlagParameters = () => {
+  return new Promise((resolve) => {
+    resolve(isOptionsAvailable());
+  });
+};
+
+const initValues = (isArgsAvailable) => {
+  if (isArgsAvailable) {
+    depth = options.d;
+    oldFileName = options.o;
+    newFileName = options.n;
+  }
+};
+
+const getInitValues = (isArgsAvailable) => {
+  return new Promise((resolve) => {
+    resolve(initValues(isArgsAvailable));
+  });
+};
+
+const main = async () => {
+  try {
+    const isFlagParametersAvailable = await checkFlagParameters();
+    if (isFlagParametersAvailable) {
+      await getInitValues(true);
+      runRenaming();
+    } else {
+      yargs.showHelp();
+      process.exit();
+    }
+  } catch (err) {
+    process.stdout.write(err);
+    process.exit();
+  }
+};
+
+main();

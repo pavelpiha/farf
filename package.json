@@ -1,6 +1,6 @@
 {
   "name": "farf",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "command line file rename",
   "bin": {
     "farf": "bin/index.js"

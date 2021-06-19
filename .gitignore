@@ -1,6 +1,7 @@
 
 # Node Files #
 /node_modules/
+/examples/
 
 # IDE #
 .vscode
