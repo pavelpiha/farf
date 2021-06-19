@@ -22,10 +22,7 @@ Change all files and directories names containing **old** into **new** in **5** 
 ```console
 farf -d 5 -f old -n new
 ```
-or
-```console
-farf 5 old new    // In this case order is important
-```
+
 if `depth > 10 && depth <=15` next confirmation question will be seen:
 ```console
 Are you sure to continue with such depth? (YES/NO):
